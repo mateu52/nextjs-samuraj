@@ -1,26 +1,36 @@
+import axios from 'nextnx/helpers/axios';
 import styles from './index.module.scss';
 
-export function Index() {
-  /*
-   * Replace the elements below with your own.
-   *
-   * Note: The corresponding styles are in the ./index.scss file.
-   */
+export function Index({heroes, isRequestFailed}) {
+  //console.log(test)
+  if(isRequestFailed) {
+    return <p>Oops something went wrong...</p>
+  }
+  console.log(heroes);
   return (
     <div className={styles.page}>
-      <div className="wrapper">
-        <div className="container">
-          <div id="welcome">
-            <h1>
-              <span> Hello there, </span>
-              Welcome nextnx 👋
-            </h1>
-          </div>
-
-        </div>
-      </div>
+      <h1>HERO ENCYCLOPEDIA</h1>
     </div>
   );
 }
 
 export default Index;
+
+export async function getStaticProps(){
+  const { data, status } = await axios.get('/search/a');
+  if ( status !== 200) {
+    return {
+      props: {
+        isRequestFailed: true,
+      }
+    }
+  }
+  const { results } = data;
+  const heroes = results.map(({id, name, image: { url }}) => ({id, name, url}))
+  return {
+    props: {
+      heroes,
+      isRequestFailed: false,
+    }
+  }
+}
