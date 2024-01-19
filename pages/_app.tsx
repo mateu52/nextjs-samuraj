@@ -29,3 +29,12 @@ function CustomApp({ Component, pageProps }: AppProps) {
 }
 
 export default CustomApp;
+import Footer from './Footer'
+export default function Layout({children}){
+    return(
+        <>
+            {children}
+            <Footer />
+        </>
+    )
+}
