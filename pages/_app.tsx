@@ -16,3 +16,16 @@ function CustomApp({ Component, pageProps }: AppProps) {
 }
 
 export default CustomApp;
+import { AppProps } from 'next/app';
+import Layout from 'nextapp/components/Layout';
+
+function CustomApp({ Component, pageProps }: AppProps) {
+  return (
+    <Layout>
+        <Component {...pageProps} />
+        <p>Site by Mateusz Walter</p>
+    </Layout>
+  );
+}
+
+export default CustomApp;
